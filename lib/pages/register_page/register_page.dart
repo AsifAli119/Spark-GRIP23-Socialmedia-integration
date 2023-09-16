@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:modern_form_line_awesome_icons/modern_form_line_awesome_icons.dart';
 import 'package:sm_login/pages/login_page/buttons.dart';
+import 'package:sm_login/sign_in_provider/sign_provider.dart';
 import '../../utilis/hexcolors.dart';
 import '../../utilis/reusablecode.dart';
 import '../routes.dart';
 
+final SignInProvider signInProvider = SignInProvider();
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -20,18 +23,16 @@ class _SignUpState extends State<SignUp> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _repasswordTextController = TextEditingController();
   TextEditingController _usernameTextController = TextEditingController();
-  TextEditingController _phnTextController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
-    Future<void> _addUserDetails(String username, String email) async {
+    Future<void> _addUserDetails(String name, String email) async {
       final firebaseUser = FirebaseAuth.instance.currentUser;
       if (firebaseUser != null) {
         final userDocument = FirebaseFirestore.instance
             .collection("users")
             .doc(firebaseUser.uid);
         await userDocument.set({
-          'username': username,
+          'name': name,
           'email': email,
         });
       }
@@ -182,31 +183,45 @@ class _SignUpState extends State<SignUp> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(16),
-                        color: Colors.grey[200],
-                      ),
-                      child: Image.asset(
-                        "assets/images/li.png",
-                        height: 40,
+                    InkWell(
+                      onTap: ()async{
+                       await signInProvider.signInWithFacebook().then((value){
+                        Navigator.pushReplacementNamed(
+                            context, MyRoutes.homePage);
+                       });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.grey[200],
+                        ),
+                        child: Image.asset(
+                          "assets/images/fb.png",
+                          height: 50,
+                        ),
                       ),
                     ),
                     SizedBox(
                       width: 25,
                     ),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(16),
-                        color: Colors.grey[200],
-                      ),
-                      child: Image.asset(
-                        "assets/images/github.png",
-                        height: 40,
+                    InkWell(
+                      onTap: ()=> SignInProvider().signInWithGoogle()..then((value){
+                        Navigator.pushReplacementNamed(
+                            context, MyRoutes.homePage);
+                      }),
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.grey[200],
+                        ),
+                        child: Image.asset(
+                          "assets/images/google.png",
+                          height: 50,
+                        ),
                       ),
                     ),
                   ],

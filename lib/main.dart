@@ -11,40 +11,29 @@ void main() async {
   await Firebase.initializeApp();
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
-
-
   User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
-    var isDark = MediaQuery.of(context).platformBrightness ==  Brightness.dark;
     return MaterialApp(
-      theme: ThemeData(
-          brightness:isDark? Brightness.dark: Brightness.light
-      ),
-      debugShowCheckedModeBanner: false ,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: StreamBuilder<User?>(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return LoginPage();
+                return const HomePage();
+              } else {
+                return const LoginPage();
               }
-              else {
-                return SignUp();
-              }
-            }
-        ),
-      ),routes: {
-      MyRoutes.loginPage: (context) => LoginPage(),
-      MyRoutes.signUpPage: (context) => SignUp(),
-      MyRoutes.homePage: (context) => HomePage(),
-
-    },
+            }),
+      ),
+      routes: {
+        MyRoutes.loginPage: (context) => const LoginPage(),
+        MyRoutes.signUpPage: (context) => const SignUp(),
+        MyRoutes.homePage: (context) => const HomePage(),
+      },
     );
   }
 }
-
-

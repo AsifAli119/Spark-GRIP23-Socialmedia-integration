@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SMLogin</string>
+
+    <string name="facebook_app_id">257744187134450</string>
+    <string name="fb_login_protocol_scheme">fb257744187134450</string>
+    <string name="facebook_client_token">62dfb9deb3a1a8cb50a0f19f685820f7</string>
+
+
+</resources>

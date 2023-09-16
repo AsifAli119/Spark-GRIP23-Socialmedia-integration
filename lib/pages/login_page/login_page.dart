@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
               Colors.blue[500]!,
             ],
           )),
-          child: Column(
+          child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
@@ -31,7 +31,10 @@ class LoginPage extends StatelessWidget {
                     ),
                     Text(
                       "Login",
-                      style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold),
                     ),
                     Text(
                       "Welcome Again",
@@ -39,7 +42,10 @@ class LoginPage extends StatelessWidget {
                     ),
                     Text(
                       "You have been missed...!",
-                      style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -49,10 +55,7 @@ class LoginPage extends StatelessWidget {
               ),
               TextFeilds(),
             ],
-          )
-      ),
+          )),
     );
   }
 }
-
-
